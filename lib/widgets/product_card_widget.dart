@@ -45,7 +45,7 @@ class _NotAvailable extends StatelessWidget {
     return Container(
       width: 150,
       height: 80,
-      decoration: _BoxNotAvailable(),
+      decoration: _boxNotAvailable(),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Container(
@@ -64,7 +64,7 @@ class _NotAvailable extends StatelessWidget {
     );
   }
 
-  BoxDecoration _BoxNotAvailable() => const BoxDecoration(
+  BoxDecoration _boxNotAvailable() => const BoxDecoration(
       color: Colors.deepPurple,
       borderRadius: BorderRadius.only(
           bottomRight: Radius.circular(25), topLeft: Radius.circular(25)));
@@ -76,7 +76,7 @@ class _UpBanner extends StatelessWidget {
     return Container(
       width: 100,
       height: 80,
-      decoration: _BoxUpBanner(),
+      decoration: _boxUpBanner(),
       child: Container(
           alignment: Alignment.center,
           child: const FittedBox(
@@ -92,7 +92,7 @@ class _UpBanner extends StatelessWidget {
     );
   }
 
-  BoxDecoration _BoxUpBanner() => const BoxDecoration(
+  BoxDecoration _boxUpBanner() => const BoxDecoration(
       color: Colors.teal,
       borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(25), topRight: Radius.circular(25)));
@@ -107,7 +107,7 @@ class _BottomBanner extends StatelessWidget {
         width: double.infinity,
         height: 100,
         // color: Colors.red,
-        decoration: _BoxBottomBanner(),
+        decoration: _boxBottomBanner(),
         child: Padding(
           padding: const EdgeInsets.all(10),
           child: Column(
@@ -136,7 +136,7 @@ class _BottomBanner extends StatelessWidget {
     );
   }
 
-  BoxDecoration _BoxBottomBanner() {
+  BoxDecoration _boxBottomBanner() {
     return const BoxDecoration(
         color: Colors.teal,
         borderRadius: BorderRadius.only(
@@ -147,6 +147,7 @@ class _BottomBanner extends StatelessWidget {
 class _BackgroundImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    // ignore: sized_box_for_whitespace
     return Container(
       // decoration: _BoxBackgroundImage(),
       height: 400,
