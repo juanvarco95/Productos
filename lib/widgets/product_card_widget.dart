@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:productos_app/models/models.dart';
 
 class ProductCardWidget extends StatelessWidget {
-  const ProductCardWidget({Key? key}) : super(key: key);
+  const ProductCardWidget({Key? key, required this.products}) : super(key: key);
+  final Products products;
 
   @override
   Widget build(BuildContext context) {
@@ -15,14 +17,19 @@ class ProductCardWidget extends StatelessWidget {
         child: Stack(
           alignment: Alignment.bottomLeft,
           children: [
-            _BackgroundImage(),
-            _BottomBanner(),
+            _BackgroundImage(
+              image: products.image,
+            ),
+            _BottomBanner(products.name, products.id!),
             Positioned(
               top: 0,
               right: 0,
-              child: _UpBanner(),
+              child: _UpBanner(price: products.price),
             ),
-            Positioned(top: 0, left: 0, child: _NotAvailable())
+            Positioned(
+                top: 0,
+                left: 0,
+                child: _NotAvailable(available: products.available))
           ],
         ),
       ),
@@ -40,8 +47,14 @@ class ProductCardWidget extends StatelessWidget {
 }
 
 class _NotAvailable extends StatelessWidget {
+  final bool available;
+
+  const _NotAvailable({Key? key, required this.available}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
+    if (available) return Container();
+
     return Container(
       width: 150,
       height: 80,
@@ -71,6 +84,10 @@ class _NotAvailable extends StatelessWidget {
 }
 
 class _UpBanner extends StatelessWidget {
+  final double price;
+
+  const _UpBanner({Key? key, required this.price}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -79,11 +96,11 @@ class _UpBanner extends StatelessWidget {
       decoration: _boxUpBanner(),
       child: Container(
           alignment: Alignment.center,
-          child: const FittedBox(
+          child: FittedBox(
             fit: BoxFit.contain,
             child: Text(
-              '\$300.000',
-              style: TextStyle(
+              '$price',
+              style: const TextStyle(
                   color: Colors.white,
                   fontSize: 20,
                   fontWeight: FontWeight.bold),
@@ -99,6 +116,10 @@ class _UpBanner extends StatelessWidget {
 }
 
 class _BottomBanner extends StatelessWidget {
+  const _BottomBanner(this.name, this.id);
+  final String name;
+  final String id;
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -112,19 +133,19 @@ class _BottomBanner extends StatelessWidget {
           padding: const EdgeInsets.all(10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: const [
+            children: [
               Text(
-                'Disco Duro',
+                name,
                 maxLines: 1,
                 overflow: TextOverflow.ellipsis,
-                style: TextStyle(
+                style: const TextStyle(
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
                     fontSize: 30),
               ),
               Text(
-                'Id Disco Duro',
-                style: TextStyle(
+                id,
+                style: const TextStyle(
                     color: Colors.white,
                     // fontWeight: FontWeight.bold,
                     fontSize: 20),
@@ -145,6 +166,9 @@ class _BottomBanner extends StatelessWidget {
 }
 
 class _BackgroundImage extends StatelessWidget {
+  const _BackgroundImage({Key? key, this.image}) : super(key: key);
+  final String? image;
+
   @override
   Widget build(BuildContext context) {
     // ignore: sized_box_for_whitespace
@@ -154,10 +178,10 @@ class _BackgroundImage extends StatelessWidget {
       width: double.infinity,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(25),
-        child: const FadeInImage(
+        child: FadeInImage(
           fit: BoxFit.cover,
-          placeholder: AssetImage('assets/jar-loading.gif'),
-          image: NetworkImage('https://via.placeholder.com/400x300/'),
+          placeholder: const AssetImage('assets/jar-loading.gif'),
+          image: NetworkImage(image!),
         ),
       ),
     );

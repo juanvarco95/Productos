@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:productos_app/models/models.dart';
 import 'package:productos_app/ui/input_decoration.dart';
 
 class ProductScreen extends StatelessWidget {
@@ -6,6 +7,9 @@ class ProductScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Products product =
+        ModalRoute.of(context)!.settings.arguments as Products;
+
     return Scaffold(
       body: SafeArea(
         bottom: false,
@@ -14,7 +18,7 @@ class ProductScreen extends StatelessWidget {
           child: Column(
             children: [
               Stack(children: [
-                const _ProductCard(),
+                _ProductCard(image: product.image!),
                 Positioned(
                   top: 50,
                   left: 30,
@@ -72,7 +76,7 @@ class _ProductForm extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 30),
-              child: _Form(),
+              child: _form(),
             )
           ],
         ),
@@ -80,7 +84,7 @@ class _ProductForm extends StatelessWidget {
     );
   }
 
-  Form _Form() => Form(
+  Form _form() => Form(
           child: Column(
         children: [
           TextFormField(
@@ -110,7 +114,10 @@ class _ProductForm extends StatelessWidget {
 class _ProductCard extends StatelessWidget {
   const _ProductCard({
     Key? key,
+    required this.image,
   }) : super(key: key);
+
+  final String image;
 
   @override
   Widget build(BuildContext context) {
@@ -120,12 +127,12 @@ class _ProductCard extends StatelessWidget {
           width: double.infinity,
           height: 500,
           decoration: _buildBoxDecoration(),
-          child: const ClipRRect(
-            borderRadius: BorderRadius.only(
+          child: ClipRRect(
+            borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(45), topRight: Radius.circular(45)),
             child: FadeInImage(
-              placeholder: AssetImage('assets/jar-loading.gif'),
-              image: NetworkImage('https://via.placeholder.com/400x300/green'),
+              placeholder: const AssetImage('assets/jar-loading.gif'),
+              image: NetworkImage(image),
               fit: BoxFit.cover,
             ),
           ),
