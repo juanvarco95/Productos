@@ -18,7 +18,7 @@ class ProductCardWidget extends StatelessWidget {
           alignment: Alignment.bottomLeft,
           children: [
             _BackgroundImage(
-              image: products.image,
+              image: products.fullImage,
             ),
             _BottomBanner(products.name, products.id!),
             Positioned(

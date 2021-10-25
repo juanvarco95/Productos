@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+// import 'package:flutter/cupertino.dart';
+
 class Products {
   Products({
     required this.available,
@@ -22,6 +24,11 @@ class Products {
   factory Products.fromJson(String str) => Products.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
+
+  get fullImage {
+    if (image != null) return image;
+    return 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png';
+  }
 
   factory Products.fromMap(Map<String, dynamic> json) => Products(
         available: json["available"],
